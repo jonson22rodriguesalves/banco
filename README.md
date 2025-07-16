@@ -1,6 +1,6 @@
 # Santander Boot Camp 2025
 
-* 🏦 Banco Digital 
+* 🏦 Banco Digital
 * 🎬 Sistema de Gerenciamento Bancário
 * Sistema Java que simula um banco digital com contas corrente e poupança, implementando:
 * Criação e exclusão de contas bancárias
@@ -9,7 +9,7 @@
 * Rendimento para conta poupança
 * Menu hierárquico interativo para todas as funcionalidades
 * Gerenciamento de estado para cada conta
-
+ 
 * 🛠️ Tecnologias Utilizadas
 * Java 17+
 * Scanner para entrada de dados
@@ -18,12 +18,12 @@
 * Encapsulamento de propriedades
 * Menu interativo com switch-case aninhados
 * Cálculo de juros diários para cheque especial
-
+ 
 * 📚 Pré-requisitos
 * Java JDK 17 ou superior
 * Conhecimento básico de compilação Java
 * Terminal/Console para execução
-
+ 
 * 🚀 Como Executar
 * Compile o programa:
 * bash
@@ -32,7 +32,7 @@
 * bash
 * java Main
 * Siga o fluxo interativo:
-
+ 
 * === MENU INICIAL ===
 1. Criar nova conta
 2. Listar contas
@@ -40,55 +40,57 @@
 4. Acessar conta existente
 0. Sair
 * Escolha uma opção:
-
+ 
 * 🎯 Funcionalidades Implementadas
 * Conta Corrente
-1.✔️ Depósitos e saques
-2.✔️ Pagamentos
-3.✔️ Cheque especial com juros diários (20% ao dia)
-4.✔️ Cálculo automático de limite (20-50% do saldo)
-
+* ✔️ Depósitos e saques
+* ✔️ Pagamentos
+* ✔️ Cheque especial com juros diários (20% ao dia)
+* ✔️ Cálculo automático de limite (20-50% do saldo)
+ 
 * Conta Poupança
-5.✔️ Depósitos e saques
-6.✔️ Rendimento mensal (0.5% ao mês)
-7.✔️ Aplicação automática de rendimentos
-
+* ✔️ Depósitos e saques
+* ✔️ Rendimento mensal (0.5% ao mês)
+* ✔️ Aplicação automática de rendimentos
+ 
 * Sistema Bancário
-8.✔️ Cadastro de contas (corrente/poupança)
-9.✔️ Listagem completa de contas
-10.✔️ Exclusão de contas
-11.✔️ Persistência em memória durante execução
-
+* ✔️ Cadastro de contas (corrente/poupança)
+* ✔️ Listagem completa de contas
+* ✔️ Exclusão de contas
+* ✔️ Persistência em memória durante execução Conta Poupança
+ 
 * 📝 Exemplo de Uso
  
 * === MENU INICIAL ===
+ 
 * Escolha uma opção: 1
  
 * === TIPO DE CONTA ===
+ 
 1. Conta Corrente
 2. Conta Poupança
-0. Voltar
- 
+3. Voltar
+  
 * Escolha: 1
 * Número da conta: 123
 * Agência: 001
 * Nome: João Silva
 * Depósito inicial: 1000.00
 * Conta criada com sucesso!
-
-* === MENU OPERAÇÕES ===
+ 
+* * === MENU OPERAÇÕES ===
 1. Consultar saldo
 2. Depositar
 3. Sacar
 4. Realizar pagamento
 5. Consultar cheque especial
 0. Voltar
- 
+  
 * Escolha: 5
 * Limite total: R$ 500.00
 * Utilizado: R$ 0.00
 * Disponível: R$ 500.00
-
+ 
 * ⚠️ Importante
 * O sistema inicia sem contas cadastradas
 * Dados persistem apenas durante a execução
