@@ -5,16 +5,62 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * Classe que implementa uma conta corrente bancária com operações básicas e cheque especial.
+ * Implementa a interface Conta com funcionalidades específicas para contas correntes.
+ *
+ * Atributos:
+ * - numeroContaCompleto: String - Número completo da conta com prefixo (final)
+ * - numeroConta: int - Número da conta sem prefixo (final)
+ * - nomeCliente: String - Nome do titular da conta (final)
+ * - saldo: double - Saldo atual da conta
+ * - limiteChequeEspecial: double - Limite disponível do cheque especial
+ * - agencia: String - Agência bancária (final)
+ * - jurosChequeEspecial: Juros - Classe interna para cálculo de juros
+ *
+ * Métodos Públicos:
+ * - consultarSaldo(): void - Exibe saldo e alerta sobre juros pendentes (implementação da interface)
+ * - realizarDeposito(double valor): void - Realiza depósito e quita juros primeiro (implementação da interface)
+ * - realizarSaque(double valor): void - Realiza saque usando saldo ou cheque especial (implementação da interface)
+ * - realizarPagamento(double valor): void - Realiza pagamento (implementação da interface)
+ * - consultarLimiteChequeEspecial(): void - Exibe informações detalhadas do cheque especial
+ * - getters: Implementações dos métodos da interface Conta + getters específicos
+ *
+ * Métodos Privados:
+ * - calcularLimiteChequeEspecial(double saldoAtual): void - Calcula limite baseado no saldo
+ * - aplicarValorNoSaldo(double valor): void - Lógica centralizada para aplicação de valores
+ *
+ * Classe Interna:
+ * - Juros: Gerencia cálculo de juros do cheque especial (data de início, valor utilizado e taxa)
  */
 public class ContaCorrente implements Conta {
+    // Número completo da conta (ex: "cc12345")
     private final String numeroContaCompleto;
+
+    // Número da conta sem prefixo
     private final int numeroConta;
+
+    // Nome do titular da conta
     private final String nomeCliente;
+
+    // Saldo atual da conta
     private double saldo;
+
+    // Limite do cheque especial
     private double limiteChequeEspecial;
+
+    // Agência bancária
     private final String agencia;
+
+    // Gerenciador de juros do cheque especial
     private final Juros jurosChequeEspecial;
 
+    /**
+     * Construtor da conta corrente
+     * @param numeroCompleto Número completo com prefixo (ex: "cc123")
+     * @param numeroConta Número da conta sem prefixo
+     * @param nomeCliente Nome do titular
+     * @param saldoInicial Valor inicial da conta
+     * @param agencia Agência bancária
+     */
     public ContaCorrente(String numeroCompleto, int numeroConta, String nomeCliente,
                          double saldoInicial, String agencia) {
         this.numeroContaCompleto = numeroCompleto;
@@ -27,15 +73,20 @@ public class ContaCorrente implements Conta {
     }
 
     /**
-     * Calcula o limite do cheque especial com base no saldo atual
+     * Calcula o limite do cheque especial baseado no saldo atual
+     * @param saldoAtual Saldo atual da conta
      */
     private void calcularLimiteChequeEspecial(double saldoAtual) {
         this.limiteChequeEspecial = saldoAtual <= 500 ?
-                saldoAtual * 0.2 :
-                saldoAtual * 0.5;
-        System.out.printf("Limite de cheque especial definido: R$ %.2f%n", this.limiteChequeEspecial);
+                saldoAtual * 0.2 : // 20% para saldos baixos
+                saldoAtual * 0.5;   // 50% para saldos maiores
+        System.out.printf("Limite de cheque especial definido: R$ %.2f%n",
+                this.limiteChequeEspecial);
     }
 
+    /**
+     * Exibe o saldo atual e alerta sobre juros pendentes
+     */
     @Override
     public void consultarSaldo() {
         double juros = jurosChequeEspecial.calcularJuros();
@@ -45,6 +96,10 @@ public class ContaCorrente implements Conta {
         System.out.printf("Saldo atual: R$ %.2f%n", this.saldo);
     }
 
+    /**
+     * Realiza depósito, priorizando quitação de juros
+     * @param valor Valor a ser depositado
+     */
     @Override
     public void realizarDeposito(double valor) {
         if (valor <= 0) {
@@ -77,6 +132,10 @@ public class ContaCorrente implements Conta {
         calcularLimiteChequeEspecial(this.saldo);
     }
 
+    /**
+     * Aplica valor no saldo, priorizando redução do cheque especial utilizado
+     * @param valor Valor a ser aplicado
+     */
     private void aplicarValorNoSaldo(double valor) {
         double utilizacaoCheque = jurosChequeEspecial.getValorUtilizado();
 
@@ -92,6 +151,10 @@ public class ContaCorrente implements Conta {
         }
     }
 
+    /**
+     * Realiza saque usando saldo ou cheque especial
+     * @param valor Valor a ser sacado
+     */
     @Override
     public void realizarSaque(double valor) {
         if (valor <= 0) {
@@ -111,19 +174,26 @@ public class ContaCorrente implements Conta {
             if (diferenca <= limiteDisponivel) {
                 this.saldo = 0;
                 jurosChequeEspecial.registrarUtilizacao(diferenca);
-                System.out.printf("Saque realizado usando cheque especial!%nLimite utilizado: R$ %.2f%n",
-                        diferenca);
+                System.out.printf("Saque realizado usando cheque especial!%n" +
+                        "Limite utilizado: R$ %.2f%n", diferenca);
             } else {
                 System.out.println("Saldo e limite insuficientes para o saque!");
             }
         }
     }
 
+    /**
+     * Realiza pagamento (delega para método de saque)
+     * @param valor Valor do pagamento
+     */
     @Override
     public void realizarPagamento(double valor) {
-        realizarSaque(valor); // Lógica similar ao saque
+        realizarSaque(valor);
     }
 
+    /**
+     * Exibe informações detalhadas do cheque especial
+     */
     public void consultarLimiteChequeEspecial() {
         double valorUtilizado = jurosChequeEspecial.getValorUtilizado();
         double juros = jurosChequeEspecial.calcularJuros();
@@ -141,7 +211,7 @@ public class ContaCorrente implements Conta {
         }
     }
 
-    // Getters implementados da interface Conta
+    // Implementação dos métodos da interface Conta
     @Override
     public String getNumeroContaCompleto() {
         return this.numeroContaCompleto;
@@ -149,7 +219,7 @@ public class ContaCorrente implements Conta {
 
     @Override
     public String getTipoConta() {
-        return "cc";
+        return "cc"; // Retorna "cc" para conta corrente
     }
 
     @Override
