@@ -43,21 +43,21 @@
 
 * 🎯 Funcionalidades Implementadas
 * Conta Corrente
-✔️ Depósitos e saques
-✔️ Pagamentos
-✔️ Cheque especial com juros diários (20% ao dia)
-✔️ Cálculo automático de limite (20-50% do saldo)
+*✔️ Depósitos e saques
+*✔️ Pagamentos
+*✔️ Cheque especial com juros diários (20% ao dia)
+*✔️ Cálculo automático de limite (20-50% do saldo)
 
 * Conta Poupança
-✔️ Depósitos e saques
-✔️ Rendimento mensal (0.5% ao mês)
-✔️ Aplicação automática de rendimentos
+*✔️ Depósitos e saques
+*✔️ Rendimento mensal (0.5% ao mês)
+*✔️ Aplicação automática de rendimentos
 
 * Sistema Bancário
-✔️ Cadastro de contas (corrente/poupança)
-✔️ Listagem completa de contas
-✔️ Exclusão de contas
-✔️ Persistência em memória durante execução
+*✔️ Cadastro de contas (corrente/poupança)
+*✔️ Listagem completa de contas
+*✔️ Exclusão de contas
+*✔️ Persistência em memória durante execução
 
 * 📝 Exemplo de Uso
  
